@@ -1,0 +1,29 @@
+A quick note...
+In the next few videos, we will be using the locate command!
+
+
+
+Depending on what distribution you are running the locate command may not come pre-installed. 
+Ubuntu 20.04 appears to have this issue, for example, but Ubuntu 18.04 does not.
+
+
+
+If you find you are having issues, try installing the locate  and mlocate packages from your repositories.
+
+sudo apt install locate
+
+sudo apt install mlocate
+
+
+
+That should do the trick!
+
+
+
+Best wishes,
+
+Ziyad, 1st July 2020.
+
+
+
+P.S If you still experience issues, please do reach out in the Q&A stating that you have already tried this solution, and we will be happy to help :)

@@ -1,0 +1,529 @@
+The Locate Command - Part2
+
+touch findme.txt
+locate findme.txt (it was not updated into the db thats why it didnt fid the file) 
+updatedb
+/var/lib/plocate/: Permission denied
+sudo updatedb (once updating the db it was able to find the file)
+locate findme.txt 
+/home/imranshaikh/Training_plan/Linux/Day_3/Commands/findme.txt
+
+
+Summary 
+The locate command Searches Database for files and returns a list of result
+Using a database is very fast, but requires updating.
+the help protect against error you can use the --existing and --follow options
+The best thing to do is just update the database(done automatically daily)
+This requires admin previliges  and there the sudo command is used.
+
+The Find Command - Part 1
+find 
+find /
+
+find /home/imranshaikh/Training_plan/Linux/Day_3/Commands
+/home/imranshaikh/Training_plan/Linux/Day_3/Commands
+/home/imranshaikh/Training_plan/Linux/Day_3/Commands/day3.md
+/home/imranshaikh/Training_plan/Linux/Day_3/Commands/findme.txt
+
+The Find Command - Part 2
+
+find . -maxdepth 1 (will show what is in the current directory)
+~/Training_plan$ find . -maxdepth 1
+.
+./.git
+./Linux
+
+find . -maxdepth 2 (will go into the 2 folder and show what is in the  directory)
+~/Training_plan$ find . -maxdepth 2
+.
+./.git
+./.git/hooks
+./.git/COMMIT_EDITMSG
+./.git/config
+./.git/logs
+./.git/info
+./.git/refs
+./.git/branches
+./.git/objects
+./.git/index
+./.git/description
+./.git/HEAD
+./Linux
+./Linux/Day_3
+./Linux/Day_1
+./Linux/Day_2
+
+~/Training_plan$ find . -maxdepth 3
+.
+./.git
+./.git/hooks
+./.git/hooks/post-update.sample
+./.git/hooks/push-to-checkout.sample
+./.git/hooks/fsmonitor-watchman.sample
+./.git/hooks/pre-rebase.sample
+./.git/hooks/pre-merge-commit.sample
+./.git/hooks/prepare-commit-msg.sample
+./.git/hooks/pre-applypatch.sample
+./.git/hooks/commit-msg.sample
+./.git/hooks/update.sample
+./.git/hooks/pre-commit.sample
+./.git/hooks/applypatch-msg.sample
+./.git/hooks/pre-receive.sample
+./.git/hooks/pre-push.sample
+./.git/COMMIT_EDITMSG
+./.git/config
+./.git/logs
+./.git/logs/refs
+./.git/logs/HEAD
+./.git/info
+./.git/info/exclude
+./.git/refs
+./.git/refs/tags
+./.git/refs/remotes
+./.git/refs/heads
+./.git/branches
+./.git/objects
+./.git/objects/8c
+./.git/objects/3c
+./.git/objects/25
+./.git/objects/f5
+./.git/objects/40
+./.git/objects/c8
+./.git/objects/fa
+./.git/objects/pack
+./.git/objects/0b
+./.git/objects/f9
+./.git/objects/e3
+./.git/objects/info
+./.git/objects/66
+./.git/objects/31
+./.git/objects/5e
+./.git/objects/97
+./.git/objects/01
+./.git/objects/c4
+./.git/objects/55
+./.git/objects/d1
+./.git/objects/b6
+./.git/objects/4b
+./.git/objects/3d
+./.git/objects/78
+./.git/objects/4f
+./.git/objects/88
+./.git/objects/a5
+./.git/objects/c5
+./.git/objects/b0
+./.git/objects/33
+./.git/objects/21
+./.git/objects/47
+./.git/objects/a3
+./.git/objects/56
+./.git/objects/03
+./.git/objects/5c
+./.git/objects/0f
+./.git/objects/e6
+./.git/objects/b1
+./.git/objects/8d
+./.git/index
+./.git/description
+./.git/HEAD
+./Linux
+./Linux/Day_3
+./Linux/Day_3/Commands
+./Linux/Day_3/Docs
+./Linux/Day_1
+./Linux/Day_1/Commands
+./Linux/Day_1/Docs
+./Linux/Day_2
+./Linux/Day_2/commands
+./Linux/Day_2/Docs
+
+find . -type f (it will find a file in te curent directory)
+find . -type d (it will find a directory in te curent directory)
+
+The Find Command - Part 3
+to find a file by name
+find . -name "error.txt"
+./Linux/Day_1/Commands/error.txt
+
+~/Training_plan$ find . -name "*.txt"
+./Linux/Day_3/Commands/findme.txt
+./Linux/Day_1/Commands/error.txt
+./Linux/Day_1/Commands/input.txt
+./Linux/Day_1/Commands/hello.txt
+./Linux/Day_1/Commands/output.txt
+./Linux/Day_2/commands/filea.txt
+./Linux/Day_2/commands/date.txt
+./Linux/Day_2/commands/diary.txt
+./Linux/Day_2/commands/reversed.txt
+./Linux/Day_2/commands/fileb.txt
+./Linux/Day_2/commands/file1.txt
+./Linux/Day_2/commands/file2.txt
+./Linux/Day_2/commands/deleteme.txt
+./Linux/Day_2/commands/unsorted.txt
+./Linux/Day_2/Docs/Locate.txt
+
+
+:~/Training_plan$ find . -name "*.TXT" (this will not find any file with "TXT" because its in the cap)
+~/Training_plan$ find . -iname "*.TXT" (if its in the caps we can use iname)
+./Linux/Day_3/Commands/findme.txt
+./Linux/Day_1/Commands/error.txt
+./Linux/Day_1/Commands/input.txt
+./Linux/Day_1/Commands/hello.txt
+./Linux/Day_1/Commands/output.txt
+./Linux/Day_2/commands/filea.txt
+./Linux/Day_2/commands/date.txt
+./Linux/Day_2/commands/diary.txt
+./Linux/Day_2/commands/reversed.txt
+./Linux/Day_2/commands/fileb.txt
+./Linux/Day_2/commands/file1.txt
+./Linux/Day_2/commands/file2.txt
+./Linux/Day_2/commands/deleteme.txt
+./Linux/Day_2/commands/unsorted.txt
+./Linux/Day_2/Docs/Locate.txt
+
+find files by size
+find / -type f -size +100k
+
+~/Training_plan/Linux/Day_3/Commands$ find . -type f -size -50k
+./day3.md
+./findme.txt
+
+sudo find / -type f -size +100k | wc -l
+find: ‘/proc/93954/task/93954/fdinfo/6’: No such file or directory
+find: ‘/proc/93954/fdinfo/5’: No such file or directory
+find: ‘/run/user/1000/gvfs’: Permission denied
+find: ‘/run/user/1000/doc’: Permission denied
+29746
+
+sudo find / -type f -size +100k -size -5M | wc -l
+find: ‘/proc/94218/task/94218/fdinfo/6’: No such file or directory
+find: ‘/proc/94218/fdinfo/5’: No such file or directory
+find: ‘/run/user/1000/gvfs’: Permission denied
+find: ‘/run/user/1000/doc’: Permission denied
+28499
+
+Files Less than 100k and grated that 5m
+sudo find / -type f -size -100k -o -size +5M | wc -l
+
+The Find Command - Part 4
+
+to find a file which is grrater that 100k and mess than 5M in size
+mkdir copy_here
+find / -type f -size +100k -size -5M | wc -l
+
+find / -type f -size +100k -size -5M -exec cp {} ~/home/imranshaikh/Training_plan/Linux/Day_3/Commands/copy_here \;
+find / -maxdepth 3 -type f -size +100k -size -5M -exec cp {} ~/home/imranshaikh/Training_plan/Linux/Day_3/Commands/copy_here \;
+
+The Find Command - Part 5
+
+mkdir haystack
+mkdir haystack/folder{1..200}
+touch haystack/folder{1..200}/file{1..100}
+touch haystack/folder$(shuf -i 1-200 -n 1)/needle.txt (this willrandomly create needel.txt on any of the folder)
+
+locate needle.txt
+/home/imranshaikh/Training_plan/Linux/Day_3/Commands/haystack/folder195/needle.txt
+find haystack/ -type f -name "needle.txt"
+haystack/folder195/needle.txt
+
+find haystack/ -type f -name "needle.txt" -exec mv {} /home/imranshaikh/Downloads \;
+
+Summary:
+To find command can be used to execute sophisticated search taks
+you can search -name, -type, -size and so much (see man page)
+you can use -exec option to execute  another command on each of the results - remember to end with \;
+
+
+Viewing Files - Part 1
+
+cat file1.txt file2.txt file3.txt file4.txt file5.txt 
+Hello
+there
+you
+Beautiful
+People
+
+cat file1.txt file2.txt file3.txt file4.txt file5.txt > beautiful.txt
+cat file[1-5].txt > beautiful.txt
+
+echo "abc" >> alpha.txt
+echo "def" >> alpha.txt
+echo "ghi" >> alpha.txt
+
+tac alpha.txt (Reverse way the file)
+ghi
+def
+abc
+
+cat file[1-5].txt | tac
+People
+Beautiful
+you
+there
+Hello
+
+cat file[1-5].txt | tac > reversed.txt
+
+cat file[1-5].txt | rev
+olleH
+ereht
+uoy
+lufituaeB
+elpoeP
+
+Viewing Files - Part 2
+
+less /etc/cups/cups-browsed.conf
+car /etc/cups/cups-browsed.conf | less
+cat file[1-5].txt | head
+cat file[1-5].txt | head -n 5
+
+find | head -n 5
+head -n 20 /etc/cups/cups-browsed.conf | wc -l
+
+cat file[1-5].txt | tail -n 2
+tail -n 20 /etc/cups/cups-browsed.conf | wc -l
+
+head -n 20 /etc/cups/cups-browsed.conf | tail -n 2
+
+find | tail -n 1
+find | tail -n 3 > ~/Desktop/export.txt
+
+Summary
+You can join files together using cat command
+Reverse file vertically using tac command
+Reverse files Horizantally using rev command
+Use less | to page through large amount of output
+use Head and tail command to cut our just what you want
+
+Sorting Data - Part 1
+sort words.txt > sorted.txt (a-z)
+sort worts.txt  | tac (z-a)
+sort -r words.txt (Reverse z-a) 
+sort -r words.txt | less
+
+sort numbers.txt | less (sorting by 1st value of the digit)
+sort -n numbers.txt | less (sorting by smallest number to highest)
+sort -nr numbers.txt | less
+
+sort numbers0-9.txt | less (from lowest to highest)
+sort -u numbers0-9.txt | less (unique number removes duplicates) 
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+sort -ur numbers0-9.txt
+9
+8
+7
+6
+5
+4
+3
+2
+1
+0
+
+Summary
+you can sort data using the sort command
+the sort command tends to sort "smallest first"(a-z,o-9 etc)
+You can reverse the using -r option
+to sort the numerically use -n option
+To only provide the unique result use -u option.
+
+Sorting Data - Part 2
+
+ls -l /etc/ | head -n 20
+ls -l /etc/ | head -n 20 | sort -k 5n
+total 1168
+-rw-r--r--  1 root root      45 Nov 11  2021 bash_completion
+-rw-r--r--  1 root root     335 Mar 23  2022 anacrontab
+-rw-r--r--  1 root root     367 Dec 16  2020 bindresvport.blacklist
+-rw-r--r--  1 root root     433 Mar 23  2022 apg.conf
+-rw-r--r--  1 root root     769 Feb 22  2022 appstream.conf
+-rw-r--r--  1 root root    2319 Jan  6  2022 bash.bashrc
+-rw-r--r--  1 root root    3028 Sep 11  2024 adduser.conf
+drwxr-xr-x  2 root root    4096 Apr  8  2022 binfmt.d
+drwxr-xr-x  2 root root    4096 Aug 11 14:29 bash_completion.d
+drwxr-xr-x  2 root root    4096 Aug 18 17:46 alternatives
+drwxr-xr-x  3 root root    4096 Jul 17 15:55 apparmor
+drwxr-xr-x  3 root root    4096 Jul 20 10:00 ansible
+drwxr-xr-x  3 root root    4096 Sep 11  2024 acpi
+drwxr-xr-x  3 root root    4096 Sep 11  2024 alsa
+drwxr-xr-x  3 root root    4096 Sep 11  2024 avahi
+drwxr-xr-x  4 root root    4096 Aug  7 12:15 apport
+drwxr-xr-x  5 root root    4096 Sep 11  2024 apm
+drwxr-xr-x  8 root root    4096 Aug 18 17:51 apparmor.d
+drwxr-xr-x  8 root root    4096 Jul 17 15:58 apt
+
+ls -l /etc/ | head -n 20 | sort -k 5nr
+ls -l /etc/ | head -n 20 | sort -k 5hr (human readiby format)
+
+ls -l /etc/ | head -n 20 | sort -k 6M
+ls -l /etc/ | head -n 20 | sort -k 6Mr
+
+ls -l /etc/ | head -n 20 | sort -k 2n
+ls -l /etc/ | head -n 20 | sort -k 2nr
+
+summary: 
+You can sort tabular data using the -k option
+You need to give th e-k option a KEYDEFF
+3nr means sort using coloumn 3, and use  the -n -r options
+To sort Human-readable data use -h option not -n
+to sort month data use the -M option
+order of options in th eKEYDEFF dont matter (as usual)
+
+File Archiving and Compression - Part 1
+
+tar -cvf ourarchive.tar fiel[1-3].txt (to create tar file of 3 files)
+ls -l | grep .tar
+tar -tf ourarchive.tar (to check whether what is inside the tar file)
+tar -xvf ourarchive.tar (to untar the tar file)
+
+
+File Archiving and Compression - Part 2
+
+gzip (faster but has less compression power)
+bzip2 (compress files smaller size than gzip but requires more computational time)
+
+gzip ourarchive.tar
+file ourarchive.tar (shows size of the file)
+gunzip ourarchive.tar.gz
+
+bzip2 ourarchive.tar
+la l
+file ourarchive.tar.bz2 (shows size of the file)
+bunzip2 ourarchive.tar.bz2
+
+zip ourthing.zip file1.txt file2.txt file3.txt
+file ourthing.zip 
+unzip ourthing.zip 
+
+![alt text](image.png)
+
+
+Project Task
+TAsk 1
+mkdir super_secret_stuff
+echo "This is my secret content!" > /super_secret_stuff/top_secret.txt
+sudo updatedb
+locate super_secret_stuff > secret_place.txt
+
+Task 2
+Par A
+sudo find / -maxdepth 4 -type f -size +1M -exec ls -lh {} \; | sort -k 5 -h
+
+Part B
+sudo find / -maxdepth 4 -type f -size +1M -exec ls -lh {} \; | sort -k 5 -h
+
+
+Section 5 Mastery Level 4: Mastering Task Automation and scheduling
+
+our_script.sh
+#!/bin/bash
+
+mkdir -p ~/Training_plan/Linux/Day_3/Commands/magic
+cd ~/Training_plan/Linux/Day_3/Commands/magic
+touch file{1..20}
+ls -lh ~/Training_plan/Linux/Day_3/Commands/magic > ~/Training_plan/Linux/Day_3/Commands/magic/magic.log
+
+
+#!/bin/bash
+
+tar -cvf backup.tar.gz ~/{Document,Downloads,Desktop,Pictures,Videos} 2>/dev/null
+
+
+Scheduling Automation Using Cron - Part1
+
+![alt text](image-1.png)
+
+minute hour day Month Day
+
+
+Task 1
+nano hungry.sh
+#!/bin/bash
+
+echo "I am hungry. Feed me data." >> /home/imranshaikh/Training_plan/Linux/Day_3/Commands/demands.txt
+date >> /home/imranshaikh/Training_plan/Linux/Day_3/Commands/demands.log
+
+cat demands.log 
+Tue Aug 19 04:46:23 PM IST 2025
+cat demands.txt 
+I am hungry. Feed me data.
+
+Task 2
+crontab -e
+* * * * * /home/imranshaikh/Training_plan/Linux/Day_3/Commands/hungry.sh
+
+cat demands.log 
+Tue Aug 19 04:46:23 PM IST 2025
+Tuesday 19 August 2025 04:54:01 PM IST
+imranshaikh@PUNELPT0516:~/Training_plan/Linux/Day_3/Commands$ cat demands.txt 
+I am hungry. Feed me data.
+I am hungry. Feed me data.
+
+Section 6: Mastery Level 5: Mastering Open Source Software
+
+
+The GNU Project
+uname
+Linux
+
+uname -o
+GNU/Linux
+
+Summary:
+
+Richard Stallman began development of the GNU operating system in 1983
+Free software is like "free speech" rather than "Free Lunch"
+Free software gives user 4 freedoms
+These Freedoms are provided legally using the GNU Public License (GPL)
+Open Access to source code is precondition for these Freedoms.
+In 1991 Linux Torvals created the Linux Kernel and released it under GPL v2.0
+Linux is actually the GNU _ Linux operating System
+
+Compiling Software from source code
+sudo apt-get install gcc
+
+https://help.ubuntu.com/community/Repositories/Ubuntu
+
+https://packages.ubuntu.com/
+
+sb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 22.04.5 LTS
+Release:        22.04
+Codename:       jammy
+
+uname -m
+x86_64
+
+Summary:
+A software repository is like a library of software
+on ubuntu there are 4 Repositories
+    Main - Canonical-supported free and open-source software.
+    Universe - Community-maintained free and open-source software.
+    Restricted - Proprietary drivers for devices.
+    Multiverse - Software restricted by copyright or legal issues.
+
+Packaegs lists are available on https://packages.ubuntu.com/
+lsb_release -a will tell your distribution codename.
+
+Each packages has other related packages
+    required - Mandatory for the package to function
+    Recommended - Needed for normal use.
+    Suggested - Suggested for Interest
+    Enchances - Enchances the package in some way
+
+Package managers are used to manage all these package relationships.
+The Package manager for ubuntu is apt, "the advance packaging tool"
+

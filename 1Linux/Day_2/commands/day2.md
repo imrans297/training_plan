@@ -1,295 +1,277 @@
-# Linux Day 2 - Hands-on Practice Log
+Piping part 1 - Piping Fundamental
 
-## Date: Mon Aug 18, 2025
+imranshaikh@PUNELPT0516:~/Training_plan$ date
+Mon Aug 18 11:13:32 AM IST 2025
 
----
+imranshaikh@PUNELPT0516:~/Training_plan$ date
+Mon Aug 18 11:13:32 AM IST 2025
 
-## Section 1: Piping Fundamentals
-
-### Basic Piping with cut command
-```bash
-# Get current date
-date
-# Output: Mon Aug 18 11:13:32 AM IST 2025
-
-# Using cut with input redirection
+cut command
 cut < date.txt --delimiter " " --fields 1
-# Output: Mon
 
-# Piping date to cut command
-date | cut --delimiter " " --fields 1  # Mon
-date | cut --delimiter " " --fields 2  # Aug  
-date | cut --delimiter " " --fields 3  # 18
+imranshaikh@PUNELPT0516:~/Training_plan/Linux/Day_2/commands$ cut < date.txt --delimiter " " --fields 1
+Mon
 
-# Redirecting output to file
-date | cut --delimiter " " --fields 3 > today.txt
-cat today.txt  # 18
+imranshaikh@PUNELPT0516:~/Training_plan/Linux/Day_2/commands$ date | cut  --delimiter " " --fields 1
+Mon
+imranshaikh@PUNELPT0516:~/Training_plan/Linux/Day_2/commands$ date | cut  --delimiter " " --fields 2
+Aug
+imranshaikh@PUNELPT0516:~/Training_plan/Linux/Day_2/commands$ date | cut  --delimiter " " --fields 3
+18
 
-# Appending to file
-date >> date.txt
-cat date.txt
-# Mon Aug 18 11:14:13 AM IST 2025
-# Mon Aug 18 11:34:47 AM IST 2025
-```
 
-### Piping with tee command
-```bash
-# tee saves to file AND passes to next command
+imranshaikh@PUNELPT0516:~/Training_plan/Linux/Day_2/commands$ date | cut  --delimiter " " --fields 3 > today.txt
+imranshaikh@PUNELPT0516:~/Training_plan/Linux/Day_2/commands$ cat today.txt 
+18
+
+imranshaikh@PUNELPT0516:~/Training_plan/Linux/Day_2/commands$ date | cut  > today.txt --delimiter " " --fields 1
+imranshaikh@PUNELPT0516:~/Training_plan/Linux/Day_2/commands$ cat today.txt 
+Mon
+
+imranshaikh@PUNELPT0516:~/Training_plan/Linux/Day_2/commands$ date >> date.txt | cut  --delimiter " " --fields 1
+imranshaikh@PUNELPT0516:~/Training_plan/Linux/Day_2/commands$ cat date.txt 
+Mon Aug 18 11:14:13 AM IST 2025
+Mon Aug 18 11:34:47 AM IST 2025
+
+Piping-Part2-Tree command
+
+![alt text](image.png)
+
 date | tee fulldate.txt | cut --delimiter=" " --field=1
-# Output: Mon
+Mon
+imranshaikh@PUNELPT0516:~/Training_plan/Linux/Day_2/commands$ cat fulldate.txt 
+Mon Aug 18 11:44:44 AM IST 2025
 
-cat fulldate.txt
-# Mon Aug 18 11:44:44 AM IST 2025
+date | tee fulldate.txt | cut --delimiter=" " --field=1 > today.t
+xt
+imranshaikh@PUNELPT0516:~/Training_plan/Linux/Day_2/commands$ cat today.txt 
+Mon
 
-# Combining tee with output redirection
-date | tee fulldate.txt | cut --delimiter=" " --field=1 > today.txt
-cat today.txt  # Mon
-```
+Piping - Part3 -Xargs Command
 
-### Piping with xargs command
-```bash
-# xargs passes input as arguments
-date | xargs echo
-# Mon Aug 18 11:50:11 AM IST 2025
+date | xargs echo 
+Mon Aug 18 11:50:11 AM IST 2025
 
 date | xargs echo "hello"
-# hello Mon Aug 18 11:50:35 AM IST 2025
+hello Mon Aug 18 11:50:35 AM IST 2025
 
-# This won't work (echo doesn't read from stdin)
-date | cut --delimiter=" " --field=1 | echo
+date | cut --delimiter=" " --field=1 | echo  (# this will not work)
 
-# This works (xargs converts stdin to arguments)
-date | cut --delimiter=" " --field=1 | xargs echo
-# Mon
+date | cut --delimiter=" " --field=1 | xargs echo 
+Mon
 
-# Practical example: delete files listed in a text file
-echo -e "fulldate.txt\ntoday.txt" > deleteme.txt
+vi deleteme.txt 
+imranshaikh@PUNELPT0516:~/Training_plan/Linux/Day_2/commands$ cat deleteme.txt 
+fulldate.txt
+today.txt
+imranshaikh@PUNELPT0516:~/Training_plan/Linux/Day_2/commands$ cat deleteme.txt | rm
+rm: missing operand
+Try 'rm --help' for more information.
+
 cat deleteme.txt | xargs rm
-```
 
-### Assignment Solutions
-```bash
-# Task 1: List directories and save to files
-ls -l /etc/ > file1.txt
-ls -l /run/ > file2.txt
+![alt text](image-2.png)
 
-# Task 2: Combine, save unsorted copy, and create reversed sorted file
+Aliases
+
+![alt text](image-3.png)
+![alt text](image-5.png)
+
+summary
+![alt text](image-6.png)
+
+Assignment
+task 1
+ls -l /etc/ > /home/imranshaikh/Training_plan/Linux/Day_2/commands/file1.txt
+ls -l /run/ > /home/imranshaikh/Training_plan/Linux/Day_2/commands/file2.txt
 cat file1.txt file2.txt | tee unsorted.txt | sort -r > reversed.txt
-```
 
----
 
-## Section 2: Linux File System Navigation
 
-### Basic Navigation Commands
-```bash
-# Current directory
+Task 1
+
+ls /etc > file1.txt 
+
+ls /run > file2.txt 
+
+Task 2
+
+cat file1.txt file2.txt | tee unsorted.txt | sort -r > reversed.txt 
+
+How long it Took You to Complete The Assignment in Minutes (estimate)
+
+Are you racing me, or what? ;)
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++_________________________________________________________________________________________
+Section 4 Mastery Level 3: Mastering Linux File system
+
+Navigation the file system Part-1
 pwd
-
-# List files
 ls
-ls -F          # Show file types with indicators
-ls -l          # Long format (detailed)
-ls -lh         # Human readable sizes
-ls -a          # Show hidden files
+man ls
+ls -F > list.txt
+ls -l (long Form format full detail)
+ls -lh
+cd
 
-# Change directory
-cd             # Go to home
-cd /           # Go to root
-cd ..          # Go up one level
-cd .           # Stay in current directory
-```
+Navigation the file system Part-2
+cd
+ls -a
 
-### Path Types
-- **Absolute path**: Starts from root (/) - `/home/user/file.txt`
-- **Relative path**: Starts from current directory - `./file.txt` or `../folder/`
-- **Special directories**: `.` (current), `..` (parent)
 
-### File Type Detection
-```bash
-# Check file type
-file image-1.png
-# Output: PNG image data, 963 x 363, 8-bit/color RGBA, non-interlaced
-```
+Navigation the file system Part-3
+cd /
+. and ..
+absolute path relatie path
+![alt text](image-7.png)
+tab auto completion
 
----
+![alt text](image-8.png)
 
-## Section 3: Wildcards and Pattern Matching
+File Extensions in Linux
 
-### Wildcard Characters
-```bash
-# * matches any characters
-ls *           # All files
-ls *.txt       # All .txt files
+file image-1.png 
+image-1.png: PNG image data, 963 x 363, 8-bit/color RGBA, non-interlaced
 
-# ? matches single character
-ls ?.txt       # Single character + .txt
-ls file?.txt   # file + single char + .txt
 
-# [] matches character ranges
-ls file[0-9].txt      # file + digit + .txt
-ls file[a-z].txt      # file + lowercase letter + .txt
-ls file[A-Z].txt      # file + uppercase letter + .txt
-ls file[0-9][A-Z][a-z].txt  # Complex pattern
-```
+Wild-Cards
+* ? []
+*
+ls *
+ls *.txt
+ls ?.txt
 
----
+ls file[01234567890].txt
+ls file*.txt 
+ls file?.txt we can use this
+ls file[0-9].txt
+ls file[a-z].txt
+ls file[0-9][A-Z][a-z].txt
 
-## Section 4: Creating Files and Directories
+![alt text](image-9.png)
 
-### Basic Creation
-```bash
-# Create empty file
+Creating Files and Folder Part -1
+
 touch file1.txt
-
-# Create file with content
 echo "hello" > file1.txt
 
-# Create directories
 mkdir folder
-mkdir ~/pictures/folder
-mkdir -p abc/folder/one    # Create parent directories
-```
+mkdir ~/picture/folder
+mkdir -p abc/folder/one
 
-### Bulk Creation with Brace Expansion
-```bash
-# Create multiple directories
+Creating Files and Folder Part -2
+
+mkdir {jan,feb,march,april,may,june,july,august,sept,nov,dec}_{2017,2018,2019,2020,2021,2022}
 mkdir {jan,feb,march,april,may,june,july,august,sept,nov,dec}_{2017..2022}
 
-# Create multiple files
+touch {jan,feb,march,april,may,june,july,august,sept,nov,dec}_{2017..2022}/file1{1..50}
+ls {jan,feb,march,april,may,june,july,august,sept,nov,dec}_{2017..2022}/file1{1..50}
+
 touch file{A..D}.txt
 touch file{A,B,C,D}.txt
 
-# Complex bulk creation
-touch {jan,feb,march}_{2017..2022}/file{1..50}
-```
 
----
+Deleteing FIles and FOlders Part 1
 
-## Section 5: Deleting Files and Directories
+rm DOcuments/Deleteme
+rm file1.txt Documents/file2.txt Downloads/file3.txt
 
-### File Deletion
-```bash
-# Delete single file
-rm file1.txt
+rm file*
+rm *2*
 
-# Delete multiple files
-rm file1.txt file2.txt file3.txt
+rm *.jpg
+rm *.txt
 
-# Delete with patterns
-rm file*       # All files starting with 'file'
-rm *.txt       # All .txt files
-rm *[2,3]*     # Files containing 2 or 3
-```
+rm *[2,3]*
 
-### Directory Deletion
-```bash
-# Delete empty directory
-rmdir folder
+![alt text](image-11.png)
 
-# Delete directory and contents recursively
-rm -r folder/
 
-# Interactive deletion (asks for confirmation)
-rm -ri folder/
 
-# Example: rmdir fails on non-empty directories
+Deleteing FIles and FOlders Part 2
+
+rm -r delfolder/
+
+mkdir -p delfolder/deleteme{1,2,3}
+rm delfolder
+rm: cannot remove 'delfolder/': Is a directory
+rm -r delfolder/
+
+mkdir -p delfolder/deleteme{1,2,3}
+touch delfolder/deletme{1,2,3}/file{1,2,3}
+rm -r delfolder/
+
+rm -ri * delfolder
+![alt text](image-12.png)
+
 mkdir -p delfolder/folder{1..3}
 touch delfolder/folder{1,2}/file{1..10}
-rmdir delfolder/*  # This will fail - directories not empty
-```
+rmdir delfolder/*
+rmdir: failed to remove 'delfolder/deleteme1': Directory not empty
+rmdir: failed to remove 'delfolder/deleteme2': Directory not empty
+rmdir: failed to remove 'delfolder/deleteme3': Directory not empty
+rmdir: failed to remove 'delfolder/folder1': Directory not empty
+rmdir: failed to remove 'delfolder/folder2': Directory not empty
 
----
+![alt text](image-13.png)
 
-## Section 6: Copying Files and Directories
 
-### Basic Copying
-```bash
-# Copy file to new location
+Copying Files and Folders
+
+echo "Hello Everyone you hey you" > filea.txt
 cp filea.txt /home/imranshaikh/Training_plan/Linux/Day_2/
-
-# Copy and rename
 cp filea.txt fileb.txt
-
-# Copy multiple files to directory
 cp filea.txt fileb.txt filec.txt destination/
 
-# Copy all files from directory
-cp destination/* .
+rm file*
+cp destination/* . 
+ls -a
 
-# Copy directories recursively
-cp -r source_folder/ destination_folder/
-```
+recusrsvely copy files which are inside folder
+cp -r 
 
----
+Moving + Renaming files and Folders
+using commandline
 
-## Section 7: Moving and Renaming
+mv oldname of the file to rename as a new file
+mv filea.txt filed.txt
+mv oldfolder/ newfolder
 
-### Move/Rename Operations
-```bash
-# Rename file
-mv oldname.txt newname.txt
-
-# Rename directory
-mv oldfolder/ newfolder/
-
-# Move files to directory
-mv file* newfolder/
-
-# Move all files from directory
 mv newfolder/* .
-
-# Move directory to different location
+mv file* newfolder/
 mv newfolder/ ~/Documents/
-mv ~/Documents/newfolder/ ./jackpot
-```
+mv ~Documents/newfolder/ ./jackpot
 
----
+Editing Files using Nano - Part1
 
-## Daily Practice Notes
-- **Tab completion** is very useful for long paths
-- Always use `ls -la` to see hidden files and permissions
-- Use `man command` to get help for any command
-- Practice with small test files before working on important data
-- Remember: `rm` is permanent - no recycle bin in Linux!
+nano diary.txt
 
----
+cat diary.txt 
+Hello !! My name is Imran
 
-## Today's Key Learnings
-1. Piping allows chaining commands efficiently
-2. `tee` is useful when you need both file output and pipeline continuation
-3. `xargs` converts stdin to command arguments
-4. Wildcards make bulk operations much easier
-5. Always be careful with `rm` - especially `rm -r`
+how are you doing??
 
-**Practice Time**: Approximately 2-3 hours
-**Difficulty Level**: Intermediate
-**Next Focus**: Advanced file permissions and text processing
 
----
+The Locate command - Part 1
 
-## Quick Reference Commands
-```bash
-# Piping essentials
-command1 | command2           # Basic pipe
-command | tee file.txt        # Save and continue pipeline
-command | xargs other_cmd     # Convert stdin to arguments
+locate *.conf (Linux seraches case sensitive)
+locate *.CONF (dosent gives any result)
 
-# Navigation
-pwd                          # Current directory
-ls -la                       # List all files with details
-cd /path/to/directory        # Change directory
+locate -i --limit 3 *.conf
+/etc/adduser.conf
+/etc/apg.conf
+/etc/appstream.conf
 
-# File operations
-touch filename               # Create empty file
-mkdir -p path/to/dir        # Create directory tree
-cp -r source/ dest/         # Copy recursively
-mv source dest              # Move/rename
-rm -r directory/            # Delete recursively
+locate -i --limit 10 *.conf
+/etc/adduser.conf
+/etc/apg.conf
+/etc/appstream.conf
+/etc/brltty.conf
+/etc/ca-certificates.conf
+/etc/debconf.conf
+/etc/deluser.conf
+/etc/e2scrub.conf
+/etc/fprintd.conf
 
-# Wildcards
-*                           # Match any characters
-?                           # Match single character
-[0-9]                       # Match digit range
-{a,b,c}                     # Brace expansion
-```
+locate --follow *.conf

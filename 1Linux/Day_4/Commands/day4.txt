@@ -1,0 +1,7 @@
+the apt cache
+
+apt-cache search docx
+apt-cache search docx | grep text
+apt-cache show docxtxt | less
+
+Setup Virtual box

@@ -315,7 +315,7 @@ sudo nano /etc/apt/preferences.d/package-name
 
 ---
 
-## Section 10: Appendix - Setting up Linux Virtual Machine
+## Section 8: Appendix - Setting up Linux Virtual Machine
 
 ### Installing VirtualBox
 ```bash

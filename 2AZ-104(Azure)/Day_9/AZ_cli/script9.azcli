@@ -1,0 +1,1 @@
+az disk create --resource-group "app-grp" --name "my-data-disk" --size-gb 128 --location "East US"

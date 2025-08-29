@@ -1,0 +1,2 @@
+az appservice plan create --resource-group "app-grp" --name "my-app-service-plan" --location "East US" --sku "B1"
+az webapp create --resource-group "app-grp" --plan "my-app-service-plan" --name "my-web-app-123"

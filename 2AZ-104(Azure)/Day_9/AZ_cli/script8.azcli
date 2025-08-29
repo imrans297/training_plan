@@ -1,0 +1,1 @@
+az network nsg create --resource-group "app-grp" --name "my-nsg" --location "East US"

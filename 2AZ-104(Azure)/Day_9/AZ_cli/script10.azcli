@@ -1,0 +1,1 @@
+az vm availability-set create --resource-group "app-grp" --name "my-availability-set" --location "East US"

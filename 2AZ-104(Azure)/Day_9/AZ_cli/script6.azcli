@@ -1,0 +1,1 @@
+az network nic create --resource-group "app-grp" --name "my-nic" --vnet-name "my-vnet" --subnet "my-subnet" --location "East US"

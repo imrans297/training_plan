@@ -1,0 +1,1 @@
+az group create --location "East US" --name "app-grp"

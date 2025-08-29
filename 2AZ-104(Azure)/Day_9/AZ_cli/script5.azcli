@@ -1,0 +1,1 @@
+az network vnet create --resource-group "app-grp" --name "new-vnet-with-subnet" --address-prefix "10.1.0.0/16" --subnet-name "default-subnet" --subnet-prefix "10.1.1.0/24" --location "East US"

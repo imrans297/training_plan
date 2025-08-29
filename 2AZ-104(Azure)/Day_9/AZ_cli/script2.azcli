@@ -1,0 +1,1 @@
+az network vnet create --resource-group "app-grp" --name "my-vnet" --address-prefix "10.0.0.0/16" --location "East US"

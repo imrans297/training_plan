@@ -1,0 +1,1 @@
+az network public-ip create --resource-group "app-grp" --name "my-public-ip" --allocation-method "Static" --location "East US"

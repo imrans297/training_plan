@@ -1,0 +1,28 @@
+# Complete Azure Infrastructure Setup Script
+
+# 1. Create Resource Group
+az group create --location "East US" --name "app-grp"
+
+# 2. Create Virtual Network
+az network vnet create --resource-group "app-grp" --name "my-vnet" --address-prefix "10.0.0.0/16" --location "East US"
+
+# 3. Add Subnet to Virtual Network
+az network vnet subnet create --resource-group "app-grp" --vnet-name "my-vnet" --name "my-subnet" --address-prefix "10.0.1.0/24"
+
+# 4. Create Public IP Address
+az network public-ip create --resource-group "app-grp" --name "my-public-ip" --allocation-method "Static" --location "East US"
+
+# 5. Create Network Security Group
+az network nsg create --resource-group "app-grp" --name "my-nsg" --location "East US"
+
+# 6. Create Network Interface
+az network nic create --resource-group "app-grp" --name "my-nic" --vnet-name "my-vnet" --subnet "my-subnet" --public-ip-address "my-public-ip" --network-security-group "my-nsg" --location "East US"
+
+# 7. Create Data Disk
+az disk create --resource-group "app-grp" --name "my-data-disk" --size-gb 128 --location "East US"
+
+# 8. Create Virtual Machine (Optional - Complete setup)
+az vm create --resource-group "app-grp" --name "my-vm" --image "Ubuntu2204" --admin-username "azureuser" --generate-ssh-keys --nics "my-nic" --location "East US"
+
+# 9. Attach Data Disk to VM
+az vm disk attach --resource-group "app-grp" --vm-name "my-vm" --name "my-data-disk"

@@ -1,0 +1,1 @@
+az vmss create --resource-group "app-grp" --name "my-vmss" --image "Ubuntu2204" --admin-username "azureuser" --generate-ssh-keys --instance-count 2 --vnet-name "my-vnet" --subnet "my-subnet" --location "East US"

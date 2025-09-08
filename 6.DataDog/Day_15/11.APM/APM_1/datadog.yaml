@@ -1,0 +1,65 @@
+# DataDog Agent Configuration for APM
+# Place this file at /etc/datadog-agent/datadog.yaml
+
+# Your DataDog API Key (replace with actual key)
+api_key: YOUR_DATADOG_API_KEY
+
+# DataDog site (use datadoghq.com for US, datadoghq.eu for EU)
+site: datadoghq.com
+
+# Hostname (optional - agent will auto-detect)
+# hostname: your-hostname
+
+# Tags to apply to all metrics, events, and service checks
+tags:
+  - env:development
+  - team:devops
+  - application:weather-app
+
+# APM Configuration
+apm_config:
+  enabled: true
+  # APM endpoint (default: localhost:8126)
+  apm_dd_url: http://localhost:8126
+  # Enable trace analytics
+  analyzed_rate_by_service:
+    weather-app: 1.0
+  # Maximum traces per second
+  max_traces_per_second: 10
+
+# Process monitoring
+process_config:
+  enabled: "true"
+
+# Log collection
+logs_enabled: true
+
+# Network monitoring
+network_config:
+  enabled: true
+
+# Live processes
+process_config:
+  enabled: "true"
+
+# System probe (for network monitoring)
+system_probe_config:
+  enabled: true
+
+# Additional APM settings
+apm_config:
+  # Enable APM
+  enabled: true
+  
+  # Trace agent endpoint
+  receiver_port: 8126
+  
+  # Enable trace analytics
+  analyzed_rate_by_service:
+    weather-app: 1.0
+    
+  # Maximum memory usage (MB)
+  max_memory: 500
+  
+  # Maximum CPU usage (%)
+  max_cpu_percent: 50

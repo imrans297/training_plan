@@ -19,7 +19,7 @@ This guide documents the complete setup of DataDog monitoring for an AKS (Azure 
 - **Resource Group**: VotingApp
 - **Nodes**: 2 worker nodes
 - **Location**: Azure region
-- **DataDog API Key**: 60af39bed0dd8903c5712af995df4a6b
+- **DataDog API Key**: ******************
 
 ### Application Stack
 - **Vote App**: Python Flask (Cats vs Dogs voting interface)

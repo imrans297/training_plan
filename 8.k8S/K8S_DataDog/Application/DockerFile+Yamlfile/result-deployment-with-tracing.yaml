@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: result
+  template:
+    metadata:
+      labels:
+        app: result
+    spec:
+      initContainers:
+      - name: install-dd-trace
+        image: node:16-alpine
+        command: ['sh', '-c', 'npm install dd-trace && cp -r node_modules/* /shared/']
+        volumeMounts:
+        - name: shared-libs
+          mountPath: /shared
+      containers:
+      - name: result
+        image: your-result-image:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: DD_AGENT_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: DD_SERVICE
+          value: "result-app"
+        - name: DD_ENV
+          value: "production"
+        - name: DD_VERSION
+          value: "1.0.0"
+        - name: DD_TRACE_AGENT_URL
+          value: "http://$(DD_AGENT_HOST):8126"
+        - name: NODE_PATH
+          value: "/shared"
+        command: ["node", "-r", "dd-trace/init", "server.js"]
+        volumeMounts:
+        - name: shared-libs
+          mountPath: /shared
+      volumes:
+      - name: shared-libs
+        emptyDir: {}
